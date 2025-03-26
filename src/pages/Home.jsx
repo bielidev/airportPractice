@@ -58,7 +58,7 @@ export const Home = () => {
             <TableCell>{airport.city}</TableCell>
             <TableCell>{airport.country}</TableCell>
             <TableCell>{airport.iataCode}</TableCell>
-            <TableCell>
+            <TableCell className="space-x-2">
               <Button onClick={(e) => handleEdit(e, airport.id)}>Edit</Button>
               <Button variant="destructive" onClick={(e) => handleDelete(e, airport.id)}>Delete</Button>
             </TableCell>
