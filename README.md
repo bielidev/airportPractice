@@ -1,12 +1,26 @@
-# React + Vite
+# 🚀 [PR] Implementación inicial del Frontend - React para AeroWatch
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descripción
 
-Currently, two official plugins are available:
+Este Pull Request introduce la configuración inicial del frontend para el **Proyecto de Gestión de Vuelos** utilizando **React**. Se ha implementado la estructura del proyecto, API Context, hooks personalizados y una interfaz de usuario con **Shadcn UI**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tecnologías utilizadas
+- **React** - Librería para interfaces de usuario.
+- **Shadcn UI** - Componentes de tailwind.
+- **React Router DOM** - Enrutamiento.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tareas realizadas
+
+- [x] Creación del proyecto React con `create-react-app`.  
+- [x] Instalación de dependencias: **Material UI, Axios, React Router DOM**.  
+- [x] Organización del proyecto en carpetas: `components`, `pages`, `context`, `hooks`, `services`.  
+- [x] Implementación del **ApiContext** para gestionar llamadas a la API.  
+- [x] Creación de hooks personalizados: **useAirports, useFlights, usePlanes**.  
+- [x] Implementación de un diseño básico con **Header, Sidebar**.  
+- [x] Configuración de rutas con **React Router DOM**.  
+
+---
+
+## Inicalización del proyecto 
