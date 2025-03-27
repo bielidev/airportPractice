@@ -15,9 +15,12 @@ import {
   getCoreRowModel,
   getSortedRowModel,
   useReactTable,
+  getFilteredRowModel,
+  getPaginationRowModel,
 } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { Input } from "@/components/ui/input";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -29,6 +32,7 @@ export const Home = () => {
     deleted,
   } = useDeleteAirport();
   const [sorting, setSorting] = useState([]);
+  const [globalFilter, setGlobalFilter] = useState([]);
 
   const table = useReactTable({
     data: airports,
@@ -54,10 +58,15 @@ export const Home = () => {
       };
     }),
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    onGlobalFilterChange: setGlobalFilter,
+    getFilteredRowModel: getFilteredRowModel(),
+    globalFilterFn: "includesString",
     state: {
       sorting,
+      globalFilter,
     },
   });
 
@@ -88,8 +97,19 @@ export const Home = () => {
       <h1 className="scroll-m-20 text-4xl font-semibold tracking-tight lg:text-5xl text-al text-center">
         Our Airports
       </h1>
-      <Button onClick={() => navigate("/create")}>Create</Button>
-      <div className="rounded-md border mt-4">
+
+      <section className="flex place-items-center justify-between py-4">
+        <Button onClick={() => navigate("/create")}>Create Airport</Button>
+        <Input
+          placeholder="Search"
+          value={globalFilter ?? ""}
+          onChange={(event) =>
+            table.setGlobalFilter(String(event.target.value))
+          }
+          className="max-w-sm"
+        />
+      </section>
+      <section className="rounded-md border mt-4">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -139,42 +159,25 @@ export const Home = () => {
             )}
           </TableBody>
         </Table>
-      </div>
-      {/* <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>#</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>City</TableHead>
-            <TableHead>Country</TableHead>
-            <TableHead>IATA</TableHead>
-            <TableHead>Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {airports.map((airport, index) => (
-            <TableRow
-              key={airport.id}
-              onClick={() => navigate(`/${airport.id}`)}
-            >
-              <TableCell>{index + 1}</TableCell>
-              <TableCell>{airport.name}</TableCell>
-              <TableCell>{airport.city}</TableCell>
-              <TableCell>{airport.country}</TableCell>
-              <TableCell>{airport.iataCode}</TableCell>
-              <TableCell className="space-x-2">
-                <Button onClick={(e) => handleEdit(e, airport.id)}>Edit</Button>
-                <Button
-                  variant="destructive"
-                  onClick={(e) => handleDelete(e, airport.id)}
-                >
-                  Delete
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table> */}
+      </section>
+      <section className="flex items-center justify-end space-x-2 py-4">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          Previous
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          Next
+        </Button>
+      </section>
     </>
   );
 };
