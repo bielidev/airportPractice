@@ -3,6 +3,7 @@ import { Home } from "./pages/Home";
 import { Detail } from "./pages/Detail";
 import { CreateUpdate } from "./pages/CreateUpdate";
 import { Sidebar } from "./components/Sidebar"; 
+import { FlightBooking } from "./pages/FightBooking";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
           <Route path="/:id" element={<Detail />} />
           <Route path="/create" element={<CreateUpdate />} />
           <Route path="/:id/update" element={<CreateUpdate />} />
+          <Route path="/flightBooking" element={<FlightBooking />} />
         </Routes>  
     </div>
   </div>
