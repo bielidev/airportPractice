@@ -2,23 +2,24 @@ import { Route, Routes } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Detail } from "./pages/Detail";
 import { CreateUpdate } from "./pages/CreateUpdate";
-import { Sidebar } from "./components/Sidebar"; 
+import { Sidebar } from "./components/Sidebar";
 import { FlightBooking } from "./pages/FightBooking";
+import { Flights } from "./pages/Flights";
 
 export default function App() {
   return (
     <div className="flex h-screen">
-    <Sidebar />
-    <div className="flex-1 p-6">
+      <Sidebar />
+      <div className="flex-1 p-6">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/:id" element={<Detail />} />
           <Route path="/create" element={<CreateUpdate />} />
           <Route path="/:id/update" element={<CreateUpdate />} />
-          <Route path="/flightBooking" element={<FlightBooking />} />
-        </Routes>  
+          <Route path="/flightbooking" element={<FlightBooking />} />
+          <Route path="/flights" element={<Flights />} />
+        </Routes>
+      </div>
     </div>
-  </div>
-    
   );
 }

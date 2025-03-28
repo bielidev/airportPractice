@@ -1,14 +1,16 @@
 import { useCallback, useState } from "react";
 
-export const useAirports = () => {
-  const [airports, setAirports] = useState([]);
+export const useFlights = () => {
+  const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const getAllAirports = useCallback(async () => {
+  const getAllFlights = useCallback(async (id) => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8080/api/airports");
+      const response = await fetch(
+        `http://localhost:8080/api/flights?airport=${id}`
+      );
       const data = await response.json();
       if (!response.ok) {
         setError(data.message);
@@ -16,7 +18,7 @@ export const useAirports = () => {
         return;
       }
 
-      setAirports(data);
+      setFlights(data);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -27,8 +29,8 @@ export const useAirports = () => {
   }, []);
 
   return {
-    getAllAirports,
-    airports,
+    getAllFlights,
+    flights,
     loading,
     error,
   };
