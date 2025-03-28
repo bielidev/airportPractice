@@ -23,6 +23,17 @@ export const FlightBooking = () => {
       format: "a4",
     });
 
+    doc.setLineDash([5, 5], 0);
+    doc.setDrawColor(0, 0, 0);
+    doc.rect(5, 5, 287, 200, "D");
+
+    const logo = new Image();
+    logo.src = "logo.png";
+    logo.onload = () => {
+      doc.addImage(logo, "PNG", 220, 5, 60, 30);
+      doc.save("boarding_pass.pdf");
+    };
+
     doc.setFont("Courier", "bold");
     doc.setFontSize(16);
     doc.text(`UNITED FLIGHT ${booking.flight}`, 10, 15);
@@ -71,12 +82,7 @@ export const FlightBooking = () => {
       margin: 5,
     });
 
-    const content = canvas.getContext("2d");
-    content.textAlign = "center";
-    content.textBaseline = "middle";
-
     const barcodeDataURL = canvas.toDataURL("image/png");
-
     doc.addImage(barcodeDataURL, "PNG", 10, 130, 100, 40);
 
     doc.setFontSize(16);
@@ -87,19 +93,25 @@ export const FlightBooking = () => {
   };
 
   return (
-    <main className="flex flex-col items-center py-8 bg-white text-black">
-      <h1 className="scroll-m-20 text-4xl font-semibold tracking-tight lg:text-5xl text-al text-center">
+    <main className="flex flex-col items-center justify-center min-h-screen py-8 bg-gray-100 text-black">
+      <img src="/logo.png" alt="Airline Logo" className="w-32 mb-4" />
+      <h1 className="scroll-m-20 text-4xl font-semibold tracking-tight lg:text-5xl text-center">
         Thanks for booking with us
       </h1>
-      <p className="py-4">
+      <p className="py-4 text-center max-w-3xl ">
         We appreciate your purchase and are glad you chose us. Please be
-        informed that your reservation has been confirmed, do not forget to show
+        informed that your reservation has been confirmed. Do not forget to show
         up one hour before your flight with your ID at the departure airport
         counter.
       </p>
-      <main className="space-y-2 text-lg">
-        <h2 className="scroll-m-20 text-3l font-semibold tracking-tight lg:text-4xl text-al text-center mt-3">
-          Your flights details
+      <section className="space-y-2 text-lg text-center">
+        <img
+          src="/public/logo.png"
+          alt="Airline Logo"
+          className="w-24 mx-auto mb-2"
+        />
+        <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight lg:text-4xl text-center mt-3">
+          Your Flight Details
         </h2>
         <p>
           <strong>Flight:</strong> {booking.flight}
@@ -116,7 +128,7 @@ export const FlightBooking = () => {
         <p>
           <strong>Boarding Time:</strong> {booking.boardingTime}
         </p>
-      </main>
+      </section>
       <button
         onClick={generatePDF}
         className="mt-6 px-6 py-3 text-white bg-black hover:bg-gray-800 rounded-lg text-xl transition-colors duration-300"
