@@ -1,6 +1,7 @@
 import { jsPDF } from "jspdf";
 import JsBarcode from "jsbarcode";
 import Ticket from "@/components/Ticket";
+import logoImage from "@/assets/logo.png";
 
 export const FlightBooking = () => {
   const booking = {
@@ -29,7 +30,7 @@ export const FlightBooking = () => {
     doc.rect(5, 5, 287, 200, "D");
 
     const logo = new Image();
-    logo.src = "logo.png";
+    logo.src = logoImage;
     logo.onload = () => {
       doc.addImage(logo, "PNG", 220, 5, 60, 30);
       doc.save("boarding_pass.pdf");
@@ -95,7 +96,7 @@ export const FlightBooking = () => {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-full py-8 bg-gray-100 text-black">
-      <img src="/logo.png" alt="Airline Logo" className="w-32 mb-4" />
+      <img src={logoImage} alt="Airline Logo" className="w-32 mb-4" />
       <h1 className="scroll-m-20 text-4xl font-semibold tracking-tight lg:text-5xl text-center">
         Thanks for booking with us
       </h1>
@@ -105,38 +106,13 @@ export const FlightBooking = () => {
         up one hour before your flight with your ID at the departure airport
         counter.
       </p>
-      <section className="space-y-2 text-lg text-center">
-        <img
-          src="/public/logo.png"
-          alt="Airline Logo"
-          className="w-24 mx-auto mb-2"
-        />
-        <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight lg:text-4xl text-center mt-3">
-          Your Flight Details
-        </h2>
-        <p>
-          <strong>Flight:</strong> {booking.flight}
-        </p>
-        <p>
-          <strong>Departure:</strong> {booking.departure}
-        </p>
-        <p>
-          <strong>Arrival:</strong> {booking.arrival}
-        </p>
-        <p>
-          <strong>Date:</strong> {booking.date}
-        </p>
-        <p>
-          <strong>Boarding Time:</strong> {booking.boardingTime}
-        </p>
-      </section>
+      <Ticket />
       <button
         onClick={generatePDF}
-        className="mt-6 mb-6 px-6 py-3 text-white bg-black hover:bg-gray-800 rounded-lg text-xl transition-colors duration-300"
+        className="mt-6 px-6 py-3 text-white bg-black hover:bg-gray-800 rounded-lg text-xl transition-colors duration-300"
       >
         GET BOARDING PASS
       </button>
-      <Ticket />
     </main>
   );
 };
