@@ -1,26 +1,6 @@
 import { Button } from "@/components/ui/button";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { columns } from "@/lib/config/airports/columns";
 import { useAirports } from "@/hooks/useAirports";
-import { useDeleteAirport } from "@/hooks/useDeleteAirport";
-import {
-  flexRender,
-  getCoreRowModel,
-  getSortedRowModel,
-  useReactTable,
-  getFilteredRowModel,
-  getPaginationRowModel,
-} from "@tanstack/react-table";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
-import { Input } from "@/components/ui/input";
 import {
   Popover,
   PopoverContent,
@@ -36,72 +16,27 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
-import { useFlights } from "@/hooks/useFilights";
+import { useFlights } from "@/hooks/useFlights";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 export const Flights = () => {
   const [searchedAirport, setSearchedAirport] = useState("");
   const [open, setOpen] = useState(false);
   const [selectedAirport, setSelectedAirport] = useState(null);
-  const navigate = useNavigate();
   const { getAllAirports, airports, loading, error } = useAirports();
   const {
     getAllFlights,
-    flights,
+    arrivals,
+    departures,
     loading: loadingFlights,
     error: errorFlights,
   } = useFlights();
-
-  // useGetFlights
-
-  const [sorting, setSorting] = useState([]);
-  const [globalFilter, setGlobalFilter] = useState([]);
-
-  const handleSearchAirport = (value) => {};
-
-  //   const table = useReactTable({
-  //     data: airports,
-  //     columns: columns.map((column) => {
-  //       if (column.id !== "actions") return column;
-  //       return {
-  //         ...column,
-  //         cell: ({ row }) => {
-  //           const airport = row.original;
-
-  //           return (
-  //             <div className="flex gap-2">
-  //               <Button onClick={(e) => handleEdit(e, airport.id)}>Edit</Button>
-  //               <Button
-  //                 variant="destructive"
-  //                 onClick={(e) => handleDelete(e, airport.id)}
-  //               >
-  //                 Delete
-  //               </Button>
-  //             </div>
-  //           );
-  //         },
-  //       };
-  //     }),
-  //     getCoreRowModel: getCoreRowModel(),
-  //     getPaginationRowModel: getPaginationRowModel(),
-  //     onSortingChange: setSorting,
-  //     getSortedRowModel: getSortedRowModel(),
-  //     onGlobalFilterChange: setGlobalFilter,
-  //     getFilteredRowModel: getFilteredRowModel(),
-  //     globalFilterFn: "includesString",
-  //     state: {
-  //       sorting,
-  //       globalFilter,
-  //     },
-  //   });
-
-  //   const handleDelete = (e, id) => {
-  //     e.stopPropagation();
-  //     deleteAirport(id);
-  //   };
-
-  //   const handleEdit = (e, id) => {
-  //     e.stopPropagation();
-  //     navigate(`/${id}/update`);
-  //   };
 
   useEffect(() => {
     if (!selectedAirport && (!airports || airports.length === 0)) {
@@ -120,6 +55,10 @@ export const Flights = () => {
   if (error || errorFlights) {
     return <div>Error!!</div>;
   }
+
+  const formatDate = (date) => {
+    return new Date(date).toLocaleTimeString();
+  };
 
   return (
     <>
@@ -184,88 +123,50 @@ export const Flights = () => {
         </Popover>
       </section>
 
-      {JSON.stringify(flights)}
-
-      {/* <section className="flex place-items-center justify-between py-4">
-        <Button onClick={() => navigate("/create")}>Create Airport</Button>
-        <Input
-          placeholder="Search"
-          value={globalFilter ?? ""}
-          onChange={(event) =>
-            table.setGlobalFilter(String(event.target.value))
-          }
-          className="max-w-sm"
-        />
-      </section>
-      <section className="rounded-md border mt-4">
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  );
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                  onClick={() => navigate(`/${row.original.id}`)}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
+      <section className="flex w-full gap-4">
+        <section className="w-full">
+          <h2 className="text-2xl my-2">Departures</h2>
+          <Table>
+            <TableHeader>
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
-                </TableCell>
+                <TableHead>Flight Number</TableHead>
+                <TableHead>Destination</TableHead>
+                <TableHead>Departure Time</TableHead>
               </TableRow>
-            )}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {departures.map((departure) => (
+                <TableRow key={departure.id}>
+                  <TableCell>{departure.flightNumber}</TableCell>
+                  <TableCell>{departure.destination.name}</TableCell>
+                  <TableCell>{formatDate(departure.departureTime)}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </section>
+        <section className="w-full">
+          <h2 className="text-2xl my-2">Arrivals</h2>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Flight Number</TableHead>
+                <TableHead>Origin</TableHead>
+                <TableHead>Arrival Time</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {arrivals.map((arrival) => (
+                <TableRow key={arrival.id}>
+                  <TableCell>{arrival.flightNumber}</TableCell>
+                  <TableCell>{arrival.origin.name}</TableCell>
+                  <TableCell>{formatDate(arrival.arrivalTime)}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </section>
       </section>
-      <section className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
-      </section> */}
     </>
   );
 };

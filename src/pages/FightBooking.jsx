@@ -1,5 +1,6 @@
 import { jsPDF } from "jspdf";
 import JsBarcode from "jsbarcode";
+import Ticket from "@/components/Ticket";
 
 export const FlightBooking = () => {
   const booking = {
@@ -93,7 +94,7 @@ export const FlightBooking = () => {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen py-8 bg-gray-100 text-black">
+    <main className="flex flex-col items-center justify-center min-h-full py-8 bg-gray-100 text-black">
       <img src="/logo.png" alt="Airline Logo" className="w-32 mb-4" />
       <h1 className="scroll-m-20 text-4xl font-semibold tracking-tight lg:text-5xl text-center">
         Thanks for booking with us
@@ -131,10 +132,11 @@ export const FlightBooking = () => {
       </section>
       <button
         onClick={generatePDF}
-        className="mt-6 px-6 py-3 text-white bg-black hover:bg-gray-800 rounded-lg text-xl transition-colors duration-300"
+        className="mt-6 mb-6 px-6 py-3 text-white bg-black hover:bg-gray-800 rounded-lg text-xl transition-colors duration-300"
       >
         GET BOARDING PASS
       </button>
+      <Ticket />
     </main>
   );
 };
