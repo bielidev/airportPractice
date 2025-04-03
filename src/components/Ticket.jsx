@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import logo from "@/assets/logo.png";
+import { QRCodeSVG } from "qrcode.react";
 
 export default function Ticket({ isSizeFixed = false }) {
   const ticketNumber = `#${(Math.random() * 1000).toFixed().toString()}`;
@@ -70,7 +71,7 @@ export default function Ticket({ isSizeFixed = false }) {
               isSizeFixed ? "grid-cols-2" : "md:grid-cols-2"
             )}
           >
-            <div className="h-max">
+            <div className="flex flex-col">
               <NotAvatarUser
                 isSizeFixed={isSizeFixed}
                 name={name}
@@ -78,6 +79,14 @@ export default function Ticket({ isSizeFixed = false }) {
                 departure={departure}
                 arrival={arrival}
               />
+              <section class="flex flex-1 flex-col items-center justify-center mb-26">
+                <div className="p-2 bg-white rounded-lg">
+                  <QRCodeSVG
+                    value="https://github.com/bielidev?tab=repositories"
+                    size={120}
+                  />
+                </div>
+              </section>
             </div>
             <div
               className={cn(
