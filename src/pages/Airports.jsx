@@ -129,7 +129,7 @@ export const Airports = () => {
   };
 
   const handleEdit = (id) => {
-    navigate(`/${id}/update`);
+    navigate(`/airports/${id}/update`);
   };
 
   const handleGetStats = (open, id) => {
@@ -158,7 +158,9 @@ export const Airports = () => {
       </h1>
 
       <section className="flex place-items-center justify-between py-4">
-        <Button onClick={() => navigate("/create")}>Create Airport</Button>
+        <Button onClick={() => navigate("/airports/create")}>
+          Create Airport
+        </Button>
         <Input
           placeholder="Search"
           value={globalFilter ?? ""}
