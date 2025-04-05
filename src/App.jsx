@@ -5,7 +5,7 @@ import { CreateUpdate } from "./pages/CreateUpdate";
 import { Sidebar } from "./components/Sidebar";
 import { FlightBooking } from "./pages/FightBooking";
 import { Flights } from "./pages/Flights";
-import Home from "./pages/Home";
+import { Home } from "./pages/Home";
 
 export default function App() {
   return (
