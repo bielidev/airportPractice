@@ -74,7 +74,7 @@ export const Flights = () => {
               variant="outline"
               role="combobox"
               aria-expanded={open}
-              className="w-[200px] justify-between"
+              className="w-[330px] justify-between mt-5"
             >
               {searchedAirport
                 ? airports
