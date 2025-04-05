@@ -68,7 +68,7 @@ export const Airports = () => {
               >
                 View
               </Button>
-              <Button onClick={(e) => handleEdit(e, airport.id)}>Edit</Button>
+              <Button onClick={() => handleEdit(airport.id)}>Edit</Button>
               <Dialog
                 open={dialogOpen}
                 onOpenChange={(open) => handleGetStats(open, airport.id)}
@@ -102,7 +102,7 @@ export const Airports = () => {
               </Dialog>
               <Button
                 variant="destructive"
-                onClick={(e) => handleDelete(e, airport.id)}
+                onClick={() => handleDelete(airport.id)}
               >
                 Delete
               </Button>
