@@ -9,7 +9,7 @@ export const useAirportStatistics = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:8080/api/stats?airport=${id}`
+        `${import.meta.env.VITE_API_HOST}/api/stats?airport=${id}`
       );
       const data = await response.json();
       if (!response.ok) {

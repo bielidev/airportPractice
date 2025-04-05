@@ -7,11 +7,13 @@ export const useFlights = () => {
   const [error, setError] = useState(null);
 
   const getDepartures = useCallback(async (id) => {
-    return fetch(`http://localhost:8080/api/flights?origin=${id}`);
+    return fetch(`${import.meta.env.VITE_API_HOST}/api/flights?origin=${id}`);
   }, []);
 
   const getArrivals = useCallback(async (id) => {
-    return fetch(`http://localhost:8080/api/flights?destination=${id}`);
+    return fetch(
+      `${import.meta.env.VITE_API_HOST}/api/flights?destination=${id}`
+    );
   }, []);
 
   const getAllFlights = useCallback(

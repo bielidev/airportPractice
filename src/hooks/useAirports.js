@@ -8,7 +8,9 @@ export const useAirports = () => {
   const getAllAirports = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8080/api/airports");
+      const response = await fetch(
+        `${import.meta.env.VITE_API_HOST}/api/airports`
+      );
       const data = await response.json();
       if (!response.ok) {
         setError(data.message);
