@@ -32,12 +32,7 @@ export const Sidebar = ({ className }) => {
   const navigate = useNavigate();
 
   return (
-    <nav
-      className={cn(
-        "w-60 h-full bg-gray-900 text-white p-4 space-y-4",
-        className
-      )}
-    >
+    <nav className={cn("w-60 bg-gray-900 text-white p-4 space-y-4", className)}>
       <h2 className="text-xl font-bold mb-4">AeroWatch</h2>
       {navItems.map((item) => (
         <Button

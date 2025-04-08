@@ -32,6 +32,8 @@ Este Pull Request introduce la configuración inicial del frontend para el **Pro
 
 ## Inicialización del proyecto
 
+Antes de ejecutar el proyecto, copiar el archivo `.env.template` y renombrarlo a `.env`.
+
 Para iniciar el proyecto, ejecutar:
 
 ```bash

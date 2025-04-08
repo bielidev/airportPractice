@@ -39,7 +39,7 @@ export const Flights = () => {
   } = useFlights();
 
   useEffect(() => {
-    if (!selectedAirport && (!airports || airports.length === 0)) {
+    if (!selectedAirport && !airports) {
       getAllAirports();
     }
 
@@ -93,7 +93,7 @@ export const Flights = () => {
               <CommandList>
                 <CommandEmpty>No airport found.</CommandEmpty>
                 <CommandGroup>
-                  {airports.map((airport) => (
+                  {airports?.map((airport) => (
                     <CommandItem
                       key={airport.id}
                       value={airport.value}

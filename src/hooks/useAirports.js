@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 
 export const useAirports = () => {
-  const [airports, setAirports] = useState([]);
+  const [airports, setAirports] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 

@@ -29,7 +29,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Portal } from "@radix-ui/react-dialog";
 import { useAirportStatistics } from "@/hooks/useAirportStatistics";
 
 export const Airports = () => {
@@ -52,7 +51,7 @@ export const Airports = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const table = useReactTable({
-    data: airports,
+    data: airports || [],
     columns: columns.map((column) => {
       if (column.id !== "actions") return column;
       return {
