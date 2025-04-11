@@ -40,6 +40,10 @@ Para iniciar el proyecto, ejecutar:
 npm run dev
 ```
 
+## Demo de la aplicación
+
+[Aerowatch](https://youtu.be/Si49HukoI4Y)
+
 ## Despliegue
 
 El fronted del proyecto está desplegado en: [Netify](https://aerowatch-cifo.netlify.app/).
