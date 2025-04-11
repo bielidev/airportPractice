@@ -61,7 +61,7 @@ export const CreateUpdate = () => {
     }
 
     if (airport.id) {
-      navigate(`/${airport.id}`);
+      navigate(`/airports/${airport.id}`);
     }
   }, [
     airportDetail,
